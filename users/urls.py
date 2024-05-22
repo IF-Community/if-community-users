@@ -15,17 +15,13 @@ from drf_spectacular.views import (
     SpectacularSwaggerView
 )
 
-from accounts.views import AccountViewSet, ProfileViewSet
-
-router = routers.SimpleRouter()
-
-router.register(r'accounts', AccountViewSet, basename="accounts")
-router.register(r'profiles', ProfileViewSet, basename="profiles")
+# Routers
+from accounts.api.urls import router as accounts_router
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     # drf
-    path('api/v1/', include(router.urls)),
+    path('api/v1/', include(accounts_router.urls)),
     path('api-auth/', include('rest_framework.urls')),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),

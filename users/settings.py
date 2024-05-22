@@ -33,10 +33,14 @@ INSTALLED_APPS = [
     # drf
     'rest_framework',
     'rest_framework_simplejwt',
-    'drf_spectacular',  
+    'drf_spectacular',
+
+    # audit
+    'easyaudit',
 ]
 
 MIDDLEWARE = [
+    'easyaudit.middleware.easyaudit.EasyAuditMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -129,6 +133,9 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
     'DEFAULT_THROTTLE_CLASSES': [
         'rest_framework.throttling.UserRateThrottle'
