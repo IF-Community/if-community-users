@@ -32,6 +32,7 @@ INSTALLED_APPS = [
 
     # drf
     'rest_framework',
+    'rest_framework_api_key',
     'rest_framework_simplejwt',
     'drf_spectacular',
 
@@ -135,6 +136,7 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
+        "rest_framework_api_key.permissions.HasAPIKey",
     ],
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
     'DEFAULT_THROTTLE_CLASSES': [
