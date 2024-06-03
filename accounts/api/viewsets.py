@@ -18,7 +18,7 @@ class AccountViewSet(ModelViewSet):
     """
     queryset = get_user_model().objects.all()
     serializer_class = AccountSerializer
-    permission_classes = (IsAuthenticated, IsAdminOrOwner, HasAPIKey)
+    permission_classes = (IsAuthenticated, HasAPIKey, IsAdminOrOwner,)
 
     def partial_update(self, request,*args, **kwargs):
         instance = self.get_object()
@@ -37,4 +37,4 @@ class ProfileViewSet(ModelViewSet):
     """
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
-    permission_classes = (IsAuthenticated, HasAPIKey)
+    permission_classes = (IsAuthenticated, HasAPIKey, IsAdminOrOwner,)
