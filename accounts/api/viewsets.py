@@ -3,11 +3,9 @@ from django.contrib.auth import get_user_model
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.viewsets import ModelViewSet
-from rest_framework.permissions import IsAuthenticated
-from rest_framework_api_key.permissions import HasAPIKey
 
 from accounts.api.serializers import AccountSerializer, ProfileSerializer
-from accounts.permissions import IsAdminOrOwner
+from accounts.permissions import IsAuthenticatedOrHasApiKey
 from accounts.models import Profile
 
 # ~=~=~=~=~=~=~= API V1 ~=~=~=~=~=~=~=~=
@@ -18,7 +16,7 @@ class AccountViewSet(ModelViewSet):
     """
     queryset = get_user_model().objects.all()
     serializer_class = AccountSerializer
-    permission_classes = (IsAuthenticated, HasAPIKey, IsAdminOrOwner,)
+    permission_classes = [IsAuthenticatedOrHasApiKey]
 
     def partial_update(self, request,*args, **kwargs):
         instance = self.get_object()
@@ -37,4 +35,5 @@ class ProfileViewSet(ModelViewSet):
     """
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
-    permission_classes = (IsAuthenticated, HasAPIKey, IsAdminOrOwner,)
+    permission_classes = [IsAuthenticatedOrHasApiKey]
+                          

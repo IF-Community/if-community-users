@@ -1,10 +1,6 @@
 from rest_framework.permissions import BasePermission
+from rest_framework_api_key.permissions import HasAPIKey
 
-class IsAdminOrOwner(BasePermission):
-    """
-    This permission checks whether the user is a staff or owner of the object itself.
-    """
-    def has_object_permission(self, request, view, obj):
-        return request.user.is_staff or obj == request.user
-    
-
+class IsAuthenticatedOrHasApiKey(BasePermission):
+    def has_permission(self, request, view):
+        return HasAPIKey().has_permission(request, view) or request.user and request.user.is_authenticated
