@@ -20,6 +20,7 @@ from accounts.api.urls import router as accounts_router
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path("", include("social_django.urls"), name="social"),
     # drf
     path('api/v1/', include(accounts_router.urls)),
     path('api-auth/', include('rest_framework.urls')),
