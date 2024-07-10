@@ -4,16 +4,13 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.viewsets import ModelViewSet
 
-from accounts.api.serializers import AccountSerializer, ProfileSerializer
+from accounts.api.serializers import AccountSerializer, ProfileSerializer, ReportSerializer
 from accounts.permissions import IsAuthenticatedOrHasApiKey
-from accounts.models import Profile
+from accounts.models import Profile, Report
 
 # ~=~=~=~=~=~=~= API V1 ~=~=~=~=~=~=~=~=
 
 class AccountViewSet(ModelViewSet):
-    """
-    A simple ViewSet for viewing and editing accounts.
-    """
     queryset = get_user_model().objects.all()
     serializer_class = AccountSerializer
     permission_classes = [IsAuthenticatedOrHasApiKey]
@@ -30,10 +27,11 @@ class AccountViewSet(ModelViewSet):
         return Response(serializer.data)
 
 class ProfileViewSet(ModelViewSet):
-    """
-    A simple ViewSet for viewing and editing accounts.
-    """
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
     permission_classes = [IsAuthenticatedOrHasApiKey]
-                          
+
+class ReportViewSet(ModelViewSet):
+    queryset = Report.objects.all()
+    serializer_class = ReportSerializer
+    permission_classes = [IsAuthenticatedOrHasApiKey]
