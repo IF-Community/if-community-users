@@ -29,7 +29,9 @@ INSTALLED_APPS = [
 
     # apps
     'accounts',
-    'social_django',
+
+    # authentication
+    'social_django',  
 
     # drf
     'rest_framework',
@@ -74,6 +76,7 @@ TEMPLATES = [
 ]
 
 AUTHENTICATION_BACKENDS = (
+    'social_core.backends.google.GoogleOAuth2',
     'suap_backend.backends.SuapOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 )
@@ -174,5 +177,10 @@ try:
 except ImportError:
     pass
 
-
+LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = '/'
+
+# Social Auth Google
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = 'client id'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'secret key'
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/'
